@@ -1,0 +1,163 @@
+/* ========================================================================== 
+   AIBSHER TAMM — DESIGN SYSTEM v2.0
+   R2.0.7 Design-System Re-Lock
+   Cairo + Inter · Dark Editorial + Light Executive
+   ========================================================================== */
+:root {
+  /* 01 — Color primitives */
+  --at-navy-950:#031722;
+  --at-navy-900:#051d2d;
+  --at-navy-850:#082638;
+  --at-blue-800:#012c4e;
+  --at-blue-700:#0d4264;
+  --at-gold-500:#e6c451;
+  --at-gold-400:#eace6a;
+  --at-gold-200:#f5e8ad;
+  --at-white:#fff;
+  --at-warm-050:#fcfaf5;
+  --at-warm-100:#f7f2e8;
+  --at-cool-025:#fbfcfc;
+  --at-cool-050:#f5f8f9;
+  --at-cool-100:#edf2f4;
+  --at-cool-200:#dbe4e8;
+  --at-cool-300:#c2cfd5;
+  --at-slate-500:#667782;
+  --at-slate-650:#4b5d67;
+  --at-slate-800:#263944;
+  --at-green-700:#137a58;
+  --at-green-050:#eaf7f1;
+  --at-red-700:#aa3f42;
+  --at-red-050:#fceded;
+  --at-gray-600:#7a8790;
+  --at-whatsapp:#075e54;
+  --at-whatsapp-hover:#06493f;
+
+  /* Semantic surfaces */
+  --at-page:var(--at-cool-050);
+  --at-surface:var(--at-white);
+  --at-surface-soft:var(--at-cool-025);
+  --at-surface-muted:var(--at-cool-100);
+  --at-surface-warm:var(--at-warm-050);
+  --at-surface-warm-strong:var(--at-warm-100);
+  --at-surface-dark:var(--at-navy-900);
+  --at-surface-dark-raised:var(--at-navy-850);
+  --at-surface-blue:var(--at-blue-800);
+
+  /* Semantic text */
+  --at-text:var(--at-slate-800);
+  --at-text-heading:var(--at-navy-900);
+  --at-text-secondary:var(--at-slate-650);
+  --at-text-muted:var(--at-slate-500);
+  --at-text-inverse:var(--at-white);
+  --at-text-accent:var(--at-gold-400);
+
+  /* Semantic borders */
+  --at-border-soft:rgba(5,29,45,.08);
+  --at-border:rgba(5,29,45,.15);
+  --at-border-strong:rgba(5,29,45,.28);
+  --at-border-inverse:rgba(255,255,255,.18);
+  --at-border-gold:rgba(234,206,106,.82);
+
+  /* Status */
+  --at-success:var(--at-green-700);
+  --at-success-bg:var(--at-green-050);
+  --at-error:var(--at-red-700);
+  --at-error-bg:var(--at-red-050);
+  --at-offline:var(--at-gray-600);
+
+  /* 02 — Typography */
+  --at-font-ar:'Cairo','Noto Sans Arabic','Segoe UI',Tahoma,sans-serif;
+  --at-font-en:'Inter','Segoe UI',Arial,sans-serif;
+  --at-font-ui:var(--at-font-ar);
+  --at-weight-regular:400;
+  --at-weight-medium:500;
+  --at-weight-semibold:600;
+  --at-weight-bold:700;
+  --at-weight-extrabold:800;
+  --at-display-size:clamp(2.45rem,4.7vw,4.75rem);
+  --at-display-line:1.11;
+  --at-h1-size:clamp(2.05rem,3.6vw,3.55rem);
+  --at-h1-line:1.18;
+  --at-h2-size:clamp(1.72rem,2.65vw,2.65rem);
+  --at-h2-line:1.28;
+  --at-h3-size:clamp(1.15rem,1.45vw,1.45rem);
+  --at-h3-line:1.45;
+  --at-card-title-size:clamp(1rem,1.1vw,1.15rem);
+  --at-body-lg-size:1.0625rem;
+  --at-body-lg-line:1.9;
+  --at-body-size:1rem;
+  --at-body-line:1.82;
+  --at-body-sm-size:.875rem;
+  --at-body-sm-line:1.72;
+  --at-label-size:.8125rem;
+  --at-caption-size:.75rem;
+
+  /* 03 — Spacing & layout */
+  --at-space-1:.25rem;
+  --at-space-2:.5rem;
+  --at-space-3:.75rem;
+  --at-space-4:1rem;
+  --at-space-5:1.5rem;
+  --at-space-6:2rem;
+  --at-space-7:3rem;
+  --at-space-8:4rem;
+  --at-space-9:5rem;
+  --at-space-10:6rem;
+  --at-space-11:7.5rem;
+  --at-container-sm:44rem;
+  --at-container-md:60rem;
+  --at-container-lg:76.25rem;
+  --at-container-xl:87.5rem;
+  --at-gutter:clamp(.9rem,2.5vw,2rem);
+  --at-section-space:clamp(4.25rem,7vw,6.5rem);
+  --at-header-height:5.1rem;
+  --at-header-height-mobile:4.35rem;
+  --at-touch:2.75rem;
+
+  /* 04 — Shape */
+  --at-radius-xs:.375rem;
+  --at-radius-control:.625rem;
+  --at-radius-card:.875rem;
+  --at-radius-panel:1.125rem;
+  --at-radius-pill:999px;
+
+  /* 05 — Elevation */
+  --at-shadow-0:none;
+  --at-shadow-1:0 1px 2px rgba(5,29,45,.04);
+  --at-shadow-2:0 8px 24px rgba(5,29,45,.07);
+  --at-shadow-3:0 16px 42px rgba(5,29,45,.12);
+  --at-shadow-4:0 26px 70px rgba(5,29,45,.2);
+  --at-shadow-focus:0 0 0 4px rgba(234,206,106,.25);
+
+  /* 06 — Components */
+  --at-control-height:2.9rem;
+  --at-button-height:2.85rem;
+  --at-panel-padding:clamp(1.25rem,3vw,2.2rem);
+  --at-card-padding:clamp(1rem,2.1vw,1.5rem);
+
+  /* 07 — Iconography / imagery */
+  --at-icon-stroke:1.75;
+  --at-icon-sm:1rem;
+  --at-icon-md:1.25rem;
+  --at-icon-lg:1.6rem;
+  --at-image-frame:10px;
+
+  /* 08 — Motion */
+  --at-duration-fast:140ms;
+  --at-duration-control:180ms;
+  --at-duration-card:220ms;
+  --at-duration-panel:260ms;
+  --at-duration-drawer:300ms;
+  --at-ease:cubic-bezier(.2,0,0,1);
+  --at-ease-enter:cubic-bezier(0,0,.2,1);
+  --at-ease-exit:cubic-bezier(.4,0,1,1);
+
+  /* z-index */
+  --at-z-header:500;
+  --at-z-rail:520;
+  --at-z-drawer:900;
+  --at-z-toast:1100;
+}
+html[lang='en']{--at-font-ui:var(--at-font-en)}
+@media (max-width:48rem){:root{--at-body-lg-size:1rem;--at-body-size:.9375rem;--at-section-space:4rem;--at-gutter:1rem}}
+@media (prefers-reduced-motion:reduce){:root{--at-duration-fast:0ms;--at-duration-control:0ms;--at-duration-card:0ms;--at-duration-panel:0ms;--at-duration-drawer:0ms}}

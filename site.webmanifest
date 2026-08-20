@@ -1,0 +1,11 @@
+{
+  "name": "AIBSHER TAMM",
+  "short_name": "AIBSHER TAMM",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f9fa",
+  "theme_color": "#051d2d",
+  "lang": "ar",
+  "dir": "rtl"
+}
