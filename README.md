@@ -1,26 +1,19 @@
-# AIBSHER TAMM — M2 Round 1.6
+# AIBSHER TAMM Website
 
-Open `index.html` to review the new wireframe package.
+Private production-source repository for the AIBSHER TAMM website.
 
-## Main pages
-- `home.html` — responsive homepage refinement.
-- `connect.html` — six-step enquiry and appointment flow.
-- `faq.html` — bilingual FAQ.
-- `terms.html` — bilingual Terms & Conditions wireframe.
-- `privacy.html` — bilingual Privacy Policy wireframe.
-- `interaction-map.html` — interaction and responsive decisions.
+## Current baseline
+- Source package supplied by owner: `v6.zip`
+- Internal release: `R2.0.21`
+- Version: `v2.7`
+- Baseline status: `R2.7 Frozen Stabilization Baseline`
+- Source package SHA256: `349e5298bd730a26edc12f120a439e587df02996b109a02bba2c7f113848638f`
+- Baseline accepted for Experience Simplification Audit: 2026-08-12
 
-## Configuration
-Edit `assets/config.js` to provide:
-- approved Company Profile URL,
-- exact location URL,
-- weather endpoint,
-- official social URLs.
+## Governance
+- GitHub owns code history, baseline commits, defects, patches, and releases.
+- Notion owns approved business facts, services, content, positioning, design decisions, and operating boundaries.
+- The current baseline is protected during the Experience Simplification Audit. No production-code changes are authorized until the audit and revised architecture are approved.
 
-Empty optional URLs cause the related controls to remain hidden. The site does not generate a Company Profile PDF.
-
-## Reports
-- `docs/ROUND1_6_IMPLEMENTATION.md`
-- `docs/ROUND1_6_CHANGELOG.md`
-- `qa/ROUND1_6_QA.md`
-- `qa/static-audit-round16.json`
+## Positioning constraint
+AIBSHER TAMM is positioned as a transaction-follow-up and services company in Qatar. The Mobile Service Unit is an important delivery/marketing channel and differentiator, but it is not the business model itself.
