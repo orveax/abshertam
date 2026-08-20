@@ -1,0 +1,28 @@
+name: Cleanup non-main branches
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/cleanup-branches.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete all branches except main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh api --paginate "repos/${REPO}/branches?per_page=100" --jq '.[].name' | while IFS= read -r branch; do
+            if [ "$branch" != "main" ]; then
+              echo "Deleting branch: $branch"
+              gh api --method DELETE "repos/${REPO}/git/refs/heads/${branch}"
+            fi
+          done
