@@ -1,0 +1,28 @@
+{
+  "release": "R2.0.21",
+  "version": "v2.7",
+  "baseline": "R2.0.20 v2.6",
+  "system": "Global Shell, Footer & Final QA",
+  "scope": [
+    "index.html",
+    "connect.html",
+    "contact.html",
+    "location.html",
+    "faq.html",
+    "terms.html",
+    "privacy.html",
+    "assets/css/global-shell-v21.css",
+    "assets/js/global-shell-v21.js"
+  ],
+  "content_integrity": "All seven <main> blocks are byte-for-byte identical to R2.0.20",
+  "qa": [
+    "qa/GLOBAL_SHELL_V21_STATIC_AUDIT.json",
+    "qa/GLOBAL_SHELL_V21_BROWSER_MATRIX.json",
+    "qa/GLOBAL_SHELL_V21_INTERACTION_AUDIT.json",
+    "qa/R2.0.21_MAIN_CONTENT_INTEGRITY.json",
+    "qa/HTTP_SMOKE_R2021.json",
+    "qa/GLOBAL_SHELL_V21_QA_REPORT.md",
+    "qa/GLOBAL_SHELL_V27_REVIEW.jpg"
+  ],
+  "status": "Ready for Owner Review"
+}

@@ -1,0 +1,61 @@
+name: Snapshot live production source
+
+on:
+  push:
+    paths:
+      - '.github/workflows/snapshot-production.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download production runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://abshertam.qa"
+          mkdir -p assets/css assets/js assets/images assets/documents
+          fetch() { mkdir -p "$(dirname "$2")"; curl -fsSL --retry 3 "$BASE/$1" -o "$2"; }
+          fetch "" index.html
+          fetch "connect.html" connect.html
+          fetch "contact.html" contact.html
+          fetch "location.html" location.html
+          fetch "faq.html" faq.html
+          fetch "terms.html" terms.html
+          fetch "privacy.html" privacy.html
+          fetch "robots.txt" robots.txt
+          fetch "sitemap.xml" sitemap.xml
+          fetch "site.webmanifest" site.webmanifest
+          fetch "assets/config.js" assets/config.js
+          for f in fonts.css tokens.css design-system.css home.css contact-v19.css location-v18.css connect.css content-pages.css support-legal-v18.css global-shell-v21.css; do fetch "assets/css/$f" "assets/css/$f"; done
+          for f in site.js home.js contact-v19.js connect.js content.js support-legal.js global-shell-v21.js; do fetch "assets/js/$f" "assets/js/$f"; done
+          for f in hero-truck-560.webp hero-truck-900.webp hero-truck-1200.webp hero-truck-1600.webp hero-truck-fallback.jpg logo-dark.png logo-light.png; do fetch "assets/images/$f" "assets/images/$f"; done
+          fetch "assets/documents/AIBSHER-TAMM-Company-Profile-Wireframe.pdf" assets/documents/AIBSHER-TAMM-Company-Profile-Wireframe.pdf
+      - name: Record production snapshot metadata
+        shell: bash
+        run: |
+          sha256sum index.html connect.html contact.html location.html faq.html terms.html privacy.html > baseline/PRODUCTION-PAGES-SHA256.txt
+          cat > baseline/PRODUCTION-SNAPSHOT.md <<'EOF'
+          # Production Runtime Snapshot
+          Source: https://abshertam.qa
+          Purpose: Exact live runtime source captured into GitHub as the code baseline for UX-AUDIT-001.
+          Scope: public HTML, CSS, JS, images, document asset, robots, sitemap, and web manifest.
+          Governance: No UX simplification changes are included in this snapshot commit.
+          EOF
+      - name: Commit snapshot
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html connect.html contact.html location.html faq.html terms.html privacy.html robots.txt sitemap.xml site.webmanifest assets baseline/PRODUCTION-PAGES-SHA256.txt baseline/PRODUCTION-SNAPSHOT.md
+          if git diff --cached --quiet; then
+            echo "No production changes to commit"
+            exit 0
+          fi
+          git commit -m "baseline: capture live AIBSHER TAMM production runtime"
+          git push origin HEAD:main
