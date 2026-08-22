@@ -25,6 +25,13 @@
     }
   })();
 
+  const cleanQueryParam = (name, maxLength = 120, pattern = null) => {
+    const raw = params.get(name);
+    if (!raw) return '';
+    const value = raw.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, maxLength);
+    return pattern && !pattern.test(value) ? '' : value;
+  };
+
   const serviceById = id => services.find(s => s.id === id);
   const pathById = id => {
     for (const service of services) {
@@ -117,15 +124,15 @@
   }
 
   function applyEntryContext() {
-    const pathId = params.get('path_id');
-    const serviceId = params.get('master_service_id');
+    const pathId = cleanQueryParam('path_id', 16, /^[A-Za-z0-9_-]+$/);
+    const serviceId = cleanQueryParam('master_service_id', 16, /^[A-Za-z0-9_-]+$/);
     let loaded = false;
     if (pathId && pathById(pathId)) { selectPath(pathId); loaded = true; }
     else if (serviceId && serviceById(serviceId)) { selectService(serviceId); loaded = true; }
-    const source = params.get('source_id') || 'direct';
+    const source = cleanQueryParam('source_id', 64, /^[A-Za-z0-9._:-]+$/) || 'direct';
     setHidden('source_id', source);
     setHidden('website_language', lang);
-    ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k => setHidden(k, params.get(k) || ''));
+    ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k => setHidden(k, cleanQueryParam(k, 120)));
     const box = $('[data-context-loaded]');
     if (box) {
       box.hidden = !loaded;
@@ -157,26 +164,22 @@
   }
 
   function save() {
-    const data = {current, maxReached};
-    new FormData(form).forEach((v,k) => { if (!(v instanceof File)) data[k] = v; });
-    data.not_sure = isNotSure();
+    const data = {
+      master_service_id: selectedServiceId(),
+      path_id: selectedPathId(),
+      not_sure: isNotSure()
+    };
     try { store.setItem(storageKey, JSON.stringify(data)); } catch (_) {}
   }
 
   function restore() {
     let data = {};
     try { data = JSON.parse(store.getItem(storageKey) || '{}'); } catch (_) {}
-    Object.entries(data).forEach(([k,v]) => {
-      if (k === 'current' || k === 'maxReached' || k === 'not_sure') return;
-      setNamedValue(k, v);
-    });
-    if (data.not_sure === true) setHidden('not_sure','true');
-    if (Number.isInteger(data.current)) current = Math.max(0, Math.min(steps.length-1, data.current));
-    if (Number.isInteger(data.maxReached)) maxReached = Math.max(current, Math.min(steps.length-1, data.maxReached));
-    const sid = getValue('master_service_id'), pid = getValue('path_id');
-    if (pid && pathById(pid)) selectPath(pid);
-    else if (sid && serviceById(sid)) selectService(sid, {clearPath:false});
-    else if (data.not_sure === true) selectNotSure();
+    if (data.not_sure === true) selectNotSure();
+    else if (data.path_id && pathById(data.path_id)) selectPath(data.path_id);
+    else if (data.master_service_id && serviceById(data.master_service_id)) selectService(data.master_service_id, {clearPath:false});
+    current = 0;
+    maxReached = 0;
   }
 
   function clearInvalid(step) {
@@ -314,7 +317,7 @@
     return obj;
   }
 
-  function handoffText(payload) {
+  function handoffCopyText(payload) {
     const lines = [
       t('طلب جديد من Connect (نسخة ما قبل الربط)','New Connect request (pre-integration build)'),
       `${t('المعاملة','Transaction')}: ${transactionLabel()}`,
@@ -327,6 +330,13 @@
     return lines.join('\n');
   }
 
+  function handoffUrlText() {
+    return t(
+      'مرحبًا، أكملت نموذج Connect في موقع أبشر تم وأرغب في متابعة طلبي.',
+      'Hello, I completed the Connect form on the AIBSHER TAMM website and would like to continue my request.'
+    );
+  }
+
   function showStagingHandoff(payload) {
     form.hidden = true;
     const panel = $('[data-staging-handoff]'); if (!panel) return;
@@ -334,11 +344,11 @@
     const number = String(config.whatsappNumber || '').replace(/\D/g,'');
     const wa = $('[data-handoff-whatsapp]', panel);
     if (wa) {
-      wa.href = number ? `https://wa.me/${number}?text=${encodeURIComponent(handoffText(payload))}` : '#';
+      wa.href = number ? `https://wa.me/${number}?text=${encodeURIComponent(handoffUrlText())}` : '#';
       wa.hidden = !number;
     }
     const copy = $('[data-copy-handoff]', panel);
-    if (copy) copy.dataset.copyText = handoffText(payload);
+    if (copy) copy.dataset.copyText = handoffCopyText(payload);
     panel.scrollIntoView({behavior:'smooth',block:'start'});
   }
 
