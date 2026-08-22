@@ -12,6 +12,7 @@ on:
       - 'en/**'
       - 'assets/**'
       - 'qa/**'
+      - 'sitemap.xml'
       - '.github/workflows/website-v2-browser-qa.yml'
   workflow_dispatch:
 
@@ -21,7 +22,7 @@ permissions:
 jobs:
   browser-qa:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,6 +52,9 @@ jobs:
 
       - name: Run browser and device QA
         run: node qa/browser-visual-qa.mjs
+
+      - name: Run release SEO QA
+        run: node qa/seo-cutover-qa.mjs
 
       - name: Upload QA screenshots and report
         if: always()
