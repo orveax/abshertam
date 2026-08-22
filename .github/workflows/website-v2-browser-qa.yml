@@ -53,6 +53,9 @@ jobs:
       - name: Run browser and device QA
         run: node qa/browser-visual-qa.mjs
 
+      - name: Run Connect security QA
+        run: node qa/connect-security-qa.mjs
+
       - name: Run release SEO QA
         run: node qa/seo-cutover-qa.mjs
 
