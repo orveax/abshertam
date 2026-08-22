@@ -43,7 +43,7 @@ try {
   await page.locator('[name="mobile"]').fill(sensitivePhone);
   await page.locator('[name="email"]').fill(sensitiveEmail);
 
-  const storageDump = await page.evaluate(() => JSON.stringify(sessionStorage));
+  const storageDump = await page.evaluate(() => JSON.stringify(Object.fromEntries(Object.entries(sessionStorage))));
   for (const value of [sensitiveOutcome, sensitiveName, sensitivePhone, sensitiveEmail]) {
     expect(!storageDump.includes(value), `pii-persisted-in-session-storage:${value}`);
   }
@@ -58,11 +58,31 @@ try {
   const handoffHref = await page.locator('[data-handoff-whatsapp]').getAttribute('href');
   const decodedHref = decodeURIComponent(handoffHref || '');
   for (const value of [sensitiveOutcome, sensitiveName, sensitivePhone, sensitiveEmail]) {
-    expect(!decodedHref.includes(value), `pii-leaked-in-handoff-url:${value}`);
+    expect(!decodedHref.includes(value), `pii-leaked-in-connect-handoff-url:${value}`);
   }
 
   const copyText = await page.locator('[data-copy-handoff]').getAttribute('data-copy-text');
   expect(Boolean(copyText && copyText.includes(sensitiveName)), 'explicit-copy-summary-missing-request-details');
+
+  await page.goto(`${baseURL}/ar/contact/`, { waitUntil: 'networkidle', timeout: 30000 });
+  const contactName = 'Contact Security Person';
+  const contactEmail = 'contact-security@example.invalid';
+  const contactSubject = 'SECURITY-CONTACT-SUBJECT';
+  const contactMessage = 'SECURITY-CONTACT-SENSITIVE-MESSAGE';
+  await page.locator('[name="full_name"]').fill(contactName);
+  await page.locator('[name="email"]').fill(contactEmail);
+  await page.locator('[name="subject"]').fill(contactSubject);
+  await page.locator('[name="message"]').fill(contactMessage);
+  await page.locator('[name="consent"]').check();
+  await page.locator('[data-contact-form] [type="submit"]').click();
+  await page.locator('[data-contact-handoff].is-visible').waitFor({ state: 'visible' });
+
+  const contactWa = decodeURIComponent((await page.locator('[data-contact-handoff-wa]').getAttribute('href')) || '');
+  const contactMail = decodeURIComponent((await page.locator('[data-contact-handoff-mail]').getAttribute('href')) || '');
+  for (const value of [contactName, contactEmail, contactSubject, contactMessage]) {
+    expect(!contactWa.includes(value), `pii-leaked-in-contact-whatsapp-url:${value}`);
+    expect(!contactMail.includes(value), `pii-leaked-in-contact-mailto-url:${value}`);
+  }
 } catch (error) {
   failures.push(`security-qa-exception:${error?.message || error}`);
 } finally {
@@ -70,9 +90,9 @@ try {
 }
 
 if (failures.length) {
-  console.error(`Connect security QA failed (${failures.length}):`);
+  console.error(`Connect/Contact security QA failed (${failures.length}):`);
   failures.forEach(item => console.error(`- ${item}`));
   process.exitCode = 1;
 } else {
-  console.log('Connect security QA passed: legacy redirect, query bounds, session storage minimization, and handoff URL privacy.');
+  console.log('Connect/Contact security QA passed: legacy redirect, query bounds, storage minimization, and handoff URL privacy.');
 }
