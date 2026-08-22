@@ -1,0 +1,28 @@
+/* AIBSHER TAMM — Website v2 QA fixes
+   Temporary QA-layer fixes discovered during browser/device validation.
+   Consolidate into the owning component styles before Production Candidate. */
+
+[hidden]{display:none!important}
+
+/* Practical touch targets for reusable controls/navigation. */
+.v2-brand{display:inline-flex;align-items:center;min-height:44px}
+.v2-family .v2-text-link{min-height:44px;align-items:center}
+.v2-resource a,.v2-resource button{min-height:44px!important;display:inline-flex;align-items:center}
+.v2-mini-faq summary{min-height:44px;display:flex;align-items:center}
+.legal-v2__identity a{min-height:44px;display:inline-flex;align-items:center}
+.support-v2__consent a{min-height:44px;display:inline-flex;align-items:center}
+
+/* FAQ horizontal-overflow containment. */
+.faq-v2__layout,.faq-v2__toc,.faq-v2__toc nav{min-width:0!important;max-width:100%}
+
+@media(max-width:64rem){
+  .v2-footer a{min-height:44px;display:flex;align-items:center}
+  .faq-v2__toc nav{width:100%;overscroll-behavior-inline:contain}
+}
+
+/* Keep all six Connect steps visible on phones. Current step text remains in the progress header. */
+@media(max-width:48rem){
+  .connect-v2__steps{grid-template-columns:repeat(6,minmax(0,1fr))!important;overflow:visible!important;gap:.1rem!important}
+  .connect-v2__step button{min-width:0!important;padding:.5rem .15rem!important}
+  .connect-v2__step strong{display:none!important}
+}

@@ -1,0 +1,22 @@
+{
+  "name": "aibshertam-website",
+  "version": "2.0.0",
+  "private": true,
+  "description": "AIBSHER TAMM website source and release QA tooling.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22 <23",
+    "npm": ">=10 <11"
+  },
+  "scripts": {
+    "qa:browser": "node qa/browser-visual-qa.mjs",
+    "qa:security": "node qa/connect-security-qa.mjs",
+    "qa:seo": "node qa/seo-cutover-qa.mjs",
+    "qa:links": "node qa/internal-link-qa.mjs",
+    "qa:all": "npm run qa:browser && npm run qa:security && npm run qa:seo && npm run qa:links",
+    "audit:dependencies": "npm audit --audit-level=high"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

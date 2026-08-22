@@ -3,5 +3,10 @@
   Locked: Cairo (Arabic) + Inter (English)
   Font files are intentionally not bundled. Online delivery may use Google Fonts
   or a production font host; offline fallback stacks remain functional.
+
+  QA note: the temporary Website v2 QA fixes layer is imported here so every
+  v2 route receives browser/device corrections during validation. It must be
+  consolidated into owning component styles before Production Candidate.
 */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('/assets/css/pages/qa-fixes-v2.css');

@@ -1,0 +1,78 @@
+name: Website v2 Browser QA
+
+on:
+  push:
+    branches:
+      - feature/website-transformation-foundation
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'ar/**'
+      - 'en/**'
+      - 'assets/**'
+      - 'qa/**'
+      - 'sitemap.xml'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/website-v2-browser-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Audit dependency graph
+        run: npm run audit:dependencies
+
+      - name: Install QA browser
+        run: ./node_modules/.bin/playwright install --with-deps chromium
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/abshertam-http.log 2>&1 &
+          for i in {1..20}; do
+            if curl -fsS http://127.0.0.1:4173/ar/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/abshertam-http.log
+          exit 1
+
+      - name: Run browser and device QA
+        run: npm run qa:browser
+
+      - name: Run Connect security QA
+        run: npm run qa:security
+
+      - name: Run release SEO QA
+        run: npm run qa:seo
+
+      - name: Run internal link QA
+        run: npm run qa:links
+
+      - name: Upload QA screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-v2-browser-qa
+          path: qa-artifacts/
+          if-no-files-found: warn
+          retention-days: 14
