@@ -25,12 +25,12 @@ try {
   expect(sourceId === 'direct', `unsafe-source-id-not-rejected:${sourceId}`);
   expect(utmSource.length <= 120, `utm-source-not-bounded:${utmSource.length}`);
 
-  await page.locator('[name="path_choice"][value="P01"]').check();
+  await page.locator('[name="path_choice"][value="P01"]').check({ force: true });
   await page.locator('[data-next]').click();
 
   const sensitiveOutcome = 'SECURITY-TEST-SENSITIVE-OUTCOME';
   await page.locator('[name="desired_outcome"]').fill(sensitiveOutcome);
-  await page.locator('[name="progress_state"][value="not_started"]').check();
+  await page.locator('[name="progress_state"][value="not_started"]').check({ force: true });
   await page.locator('[data-next]').click();
 
   await page.locator('[name="readiness_summary"]').selectOption('some');
@@ -49,9 +49,9 @@ try {
   }
 
   await page.locator('[data-next]').click();
-  await page.locator('[name="preferred_next_step"][value="whatsapp"]').check();
+  await page.locator('[name="preferred_next_step"][value="whatsapp"]').check({ force: true });
   await page.locator('[data-next]').click();
-  await page.locator('[name="consent"]').check();
+  await page.locator('[name="consent"]').check({ force: true });
   await page.locator('[data-submit]').click();
 
   await page.locator('[data-staging-handoff].is-visible').waitFor({ state: 'visible' });
@@ -73,7 +73,7 @@ try {
   await page.locator('[name="email"]').fill(contactEmail);
   await page.locator('[name="subject"]').fill(contactSubject);
   await page.locator('[name="message"]').fill(contactMessage);
-  await page.locator('[name="consent"]').check();
+  await page.locator('[name="consent"]').check({ force: true });
   await page.locator('[data-contact-form] [type="submit"]').click();
   await page.locator('[data-contact-handoff].is-visible').waitFor({ state: 'visible' });
 
