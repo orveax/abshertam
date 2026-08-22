@@ -13,6 +13,8 @@ on:
       - 'assets/**'
       - 'qa/**'
       - 'sitemap.xml'
+      - 'package.json'
+      - 'package-lock.json'
       - '.github/workflows/website-v2-browser-qa.yml'
   workflow_dispatch:
 
@@ -31,12 +33,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'npm'
 
-      - name: Install Playwright
-        run: |
-          npm init -y
-          npm install --no-save playwright@1.55.1
-          npx playwright install --with-deps chromium
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Audit dependency graph
+        run: npm run audit:dependencies
+
+      - name: Install QA browser
+        run: ./node_modules/.bin/playwright install --with-deps chromium
 
       - name: Start static server
         run: |
@@ -51,16 +57,16 @@ jobs:
           exit 1
 
       - name: Run browser and device QA
-        run: node qa/browser-visual-qa.mjs
+        run: npm run qa:browser
 
       - name: Run Connect security QA
-        run: node qa/connect-security-qa.mjs
+        run: npm run qa:security
 
       - name: Run release SEO QA
-        run: node qa/seo-cutover-qa.mjs
+        run: npm run qa:seo
 
       - name: Run internal link QA
-        run: node qa/internal-link-qa.mjs
+        run: npm run qa:links
 
       - name: Upload QA screenshots and report
         if: always()
