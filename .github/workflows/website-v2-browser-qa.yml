@@ -4,6 +4,15 @@ on:
   push:
     branches:
       - feature/website-transformation-foundation
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'ar/**'
+      - 'en/**'
+      - 'assets/**'
+      - 'qa/**'
+      - '.github/workflows/website-v2-browser-qa.yml'
   workflow_dispatch:
 
 permissions:
