@@ -11,6 +11,37 @@
   const services = window.AIBSHER_DATA && window.AIBSHER_DATA.services;
   const config = window.AIBSHER_CONFIG || {};
 
+  /* Release-preparation SEO contract.
+     v2 remains noindex in staging; these links prepare canonical/hreflang pairing
+     without changing indexing state. Static head tags should replace this runtime
+     fallback at Production Candidate if the final hosting/build process supports it. */
+  const siteOrigin = String(config.siteUrl || 'https://abshertam.qa').replace(/\/$/, '');
+  const pathname = window.location.pathname.endsWith('/') ? window.location.pathname : `${window.location.pathname}/`;
+  const isArRoute = /^\/ar(?:\/|$)/.test(pathname);
+  const isEnRoute = /^\/en(?:\/|$)/.test(pathname);
+  if (isArRoute || isEnRoute) {
+    const arPath = isArRoute ? pathname : pathname.replace(/^\/en(?=\/|$)/, '/ar');
+    const enPath = isEnRoute ? pathname : pathname.replace(/^\/ar(?=\/|$)/, '/en');
+    const currentPath = lang === 'en' ? enPath : arPath;
+    const ensureLink = (rel, href, hreflang = '') => {
+      const selector = hreflang
+        ? `link[rel="${rel}"][hreflang="${hreflang}"]`
+        : `link[rel="${rel}"]:not([hreflang])`;
+      let link = document.head.querySelector(selector);
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = rel;
+        if (hreflang) link.hreflang = hreflang;
+        document.head.appendChild(link);
+      }
+      link.href = href;
+    };
+    ensureLink('canonical', `${siteOrigin}${currentPath}`);
+    ensureLink('alternate', `${siteOrigin}${arPath}`, 'ar');
+    ensureLink('alternate', `${siteOrigin}${enPath}`, 'en');
+    ensureLink('alternate', `${siteOrigin}${arPath}`, 'x-default');
+  }
+
   if (menuButton && nav) {
     const setOpen = (open) => {
       nav.classList.toggle('is-open', open);
