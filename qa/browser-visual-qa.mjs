@@ -74,17 +74,14 @@ for (const [routeName, route] of routes) {
       await page.screenshot({ path: path.join(outDir, `${routeName}__${viewportName}.png`), fullPage: true });
 
       if (route.includes('/connect/')) {
-        const firstFocusable = page.locator('input,select,textarea,button,a').filter({ visible: true }).first();
-        if (await firstFocusable.count()) {
-          await page.keyboard.press('Tab');
-          const focusVisible = await page.evaluate(() => {
-            const el = document.activeElement;
-            if (!el || el === document.body) return false;
-            const s = getComputedStyle(el);
-            return s.outlineStyle !== 'none' || s.boxShadow !== 'none';
-          });
-          if (!focusVisible) entry.issues.push('focus-visible-not-detected-on-first-tab');
-        }
+        await page.keyboard.press('Tab');
+        const focusVisible = await page.evaluate(() => {
+          const el = document.activeElement;
+          if (!el || el === document.body) return false;
+          const s = getComputedStyle(el);
+          return s.outlineStyle !== 'none' || s.boxShadow !== 'none';
+        });
+        if (!focusVisible) entry.issues.push('focus-visible-not-detected-on-first-tab');
       }
 
       if (entry.issues.length) {
