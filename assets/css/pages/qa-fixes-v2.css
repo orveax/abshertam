@@ -9,6 +9,7 @@
 .v2-family .v2-text-link{min-height:44px;align-items:center}
 .v2-resource a,.v2-resource button{min-height:44px!important;display:inline-flex;align-items:center}
 .v2-mini-faq summary{min-height:44px;display:flex;align-items:center}
+.legal-v2__identity a{min-height:44px;display:inline-flex;align-items:center}
 
 /* FAQ horizontal-overflow containment. */
 .faq-v2__layout,.faq-v2__toc,.faq-v2__toc nav{min-width:0!important;max-width:100%}
