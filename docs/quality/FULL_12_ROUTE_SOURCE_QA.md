@@ -82,6 +82,18 @@ PASS:
 - Request/contact endpoints are not assumed to exist.
 - Operating status uses the approved Doha timezone and service-point hours.
 
+## SEO / release publishing QA — OPEN
+Findings:
+- `robots.txt` is valid and points to `https://abshertam.qa/sitemap.xml`.
+- Current `sitemap.xml` still lists the legacy root and `.html` routes only; it does not yet contain the new `/ar/` and `/en/` route trees.
+- The new v2 pages intentionally remain `noindex,nofollow` in staging.
+- Canonical + `hreflang` pairs for the new AR/EN pages are not yet frozen for Production.
+- Legacy root `.html` pages still coexist with the new route trees, so a redirect/canonical migration map must be approved before cutover.
+
+Release rule:
+- Do not remove `noindex` until sitemap, canonical, hreflang and redirect behavior are updated together for the approved hosting/deployment layer.
+- Do not add platform-specific redirect syntax until the production hosting route mechanism is confirmed.
+
 ## Git control QA
 PASS:
 - Transformation branch is ahead of `main` and not behind it.
@@ -94,7 +106,7 @@ PASS:
 3. Android + iPhone mobile QA.
 4. Keyboard/focus/accessibility journey QA.
 5. Header/Premium Menu final visual/component QA.
-6. Internal-link / canonical / hreflang / sitemap / redirect QA.
+6. Canonical / hreflang / sitemap / redirect migration QA.
 7. Backend decision + real Connect submission QA.
 8. Contact endpoint decision or approved manual handoff policy.
 9. Qatar legal review of Terms and Privacy alignment.
@@ -107,6 +119,7 @@ Static 12-route implementation: PASS.
 AR/EN structural parity: PASS.
 Source behavior/truthfulness: PASS.
 Legal body preservation: PASS.
+SEO publishing migration: OPEN.
 Visual/device QA: PENDING.
 Backend submission QA: PENDING.
 Qatar legal review: PENDING.
