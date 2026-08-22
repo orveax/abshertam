@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   snapshot:
@@ -19,7 +19,7 @@ jobs:
         run: |
           set -euo pipefail
           BASE="https://abshertam.qa"
-          mkdir -p assets/css assets/js assets/images assets/documents
+          mkdir -p assets/css assets/js assets/images assets/documents baseline
           fetch() { mkdir -p "$(dirname "$2")"; curl -fsSL --retry 3 "$BASE/$1" -o "$2"; }
           fetch "" index.html
           fetch "connect.html" connect.html
@@ -43,21 +43,29 @@ jobs:
           cat > baseline/PRODUCTION-SNAPSHOT.md <<'EOF'
           # Production Runtime Snapshot
           Source: https://abshertam.qa
-          Purpose: Exact live runtime source captured into GitHub as the code baseline for UX-AUDIT-001.
+          Purpose: Read-only capture of the live runtime for comparison and incident/debug review.
           Scope: public HTML, CSS, JS, images, document asset, robots, sitemap, and web manifest.
-          Governance: No UX simplification changes are included in this snapshot commit.
+          Governance: This workflow must never commit or push downloaded production content into a trusted source branch.
           EOF
-      - name: Commit snapshot
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html connect.html contact.html location.html faq.html terms.html privacy.html robots.txt sitemap.xml site.webmanifest assets baseline/PRODUCTION-PAGES-SHA256.txt baseline/PRODUCTION-SNAPSHOT.md
-          if git diff --cached --quiet; then
-            echo "No production changes to commit"
-            exit 0
-          fi
-          git commit -m "baseline: capture live AIBSHER TAMM production runtime"
-          git push origin HEAD:main
+      - name: Upload production snapshot artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aibshertam-production-snapshot
+          path: |
+            index.html
+            connect.html
+            contact.html
+            location.html
+            faq.html
+            terms.html
+            privacy.html
+            robots.txt
+            sitemap.xml
+            site.webmanifest
+            assets/
+            baseline/PRODUCTION-PAGES-SHA256.txt
+            baseline/PRODUCTION-SNAPSHOT.md
+          if-no-files-found: error
+          retention-days: 14
 
-# Baseline activation: 2026-08-21
+# Security hardening: production capture is artifact-only and cannot mutate main.
