@@ -17,6 +17,6 @@
     "audit:dependencies": "npm audit --audit-level=high"
   },
   "devDependencies": {
-    "playwright": "1.55.1"
+    "playwright": "1.62.1"
   }
 }
