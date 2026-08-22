@@ -10,6 +10,9 @@ const expect = (condition, message) => {
 };
 
 try {
+  await page.goto(`${baseURL}/connect.html`, { waitUntil: 'networkidle', timeout: 30000 });
+  expect(new URL(page.url()).pathname === '/ar/connect/', `legacy-connect-not-redirected:${page.url()}`);
+
   await page.goto(`${baseURL}/ar/connect/?source_id=%3Cscript%3Ebad%3C%2Fscript%3E&utm_source=${'x'.repeat(220)}`, {
     waitUntil: 'networkidle',
     timeout: 30000
@@ -71,5 +74,5 @@ if (failures.length) {
   failures.forEach(item => console.error(`- ${item}`));
   process.exitCode = 1;
 } else {
-  console.log('Connect security QA passed: query bounds, session storage minimization, and handoff URL privacy.');
+  console.log('Connect security QA passed: legacy redirect, query bounds, session storage minimization, and handoff URL privacy.');
 }
