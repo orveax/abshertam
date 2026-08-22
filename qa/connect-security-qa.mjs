@@ -9,6 +9,14 @@ const expect = (condition, message) => {
   if (!condition) failures.push(message);
 };
 
+const setChecked = async selector => {
+  await page.locator(selector).evaluate(el => {
+    el.checked = true;
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+};
+
 try {
   await page.goto(`${baseURL}/connect.html`, { waitUntil: 'networkidle', timeout: 30000 });
   expect(new URL(page.url()).pathname === '/ar/connect/', `legacy-connect-not-redirected:${page.url()}`);
@@ -25,12 +33,12 @@ try {
   expect(sourceId === 'direct', `unsafe-source-id-not-rejected:${sourceId}`);
   expect(utmSource.length <= 120, `utm-source-not-bounded:${utmSource.length}`);
 
-  await page.locator('[name="path_choice"][value="P01"]').check({ force: true });
+  await setChecked('[name="path_choice"][value="P01"]');
   await page.locator('[data-next]').click();
 
   const sensitiveOutcome = 'SECURITY-TEST-SENSITIVE-OUTCOME';
   await page.locator('[name="desired_outcome"]').fill(sensitiveOutcome);
-  await page.locator('[name="progress_state"][value="not_started"]').check({ force: true });
+  await setChecked('[name="progress_state"][value="not_started"]');
   await page.locator('[data-next]').click();
 
   await page.locator('[name="readiness_summary"]').selectOption('some');
@@ -49,9 +57,9 @@ try {
   }
 
   await page.locator('[data-next]').click();
-  await page.locator('[name="preferred_next_step"][value="whatsapp"]').check({ force: true });
+  await setChecked('[name="preferred_next_step"][value="whatsapp"]');
   await page.locator('[data-next]').click();
-  await page.locator('[name="consent"]').check({ force: true });
+  await setChecked('[name="consent"]');
   await page.locator('[data-submit]').click();
 
   await page.locator('[data-staging-handoff].is-visible').waitFor({ state: 'visible' });
@@ -73,7 +81,7 @@ try {
   await page.locator('[name="email"]').fill(contactEmail);
   await page.locator('[name="subject"]').fill(contactSubject);
   await page.locator('[name="message"]').fill(contactMessage);
-  await page.locator('[name="consent"]').check({ force: true });
+  await setChecked('[name="consent"]');
   await page.locator('[data-contact-form] [type="submit"]').click();
   await page.locator('[data-contact-handoff].is-visible').waitFor({ state: 'visible' });
 
