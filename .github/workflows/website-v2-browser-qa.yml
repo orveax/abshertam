@@ -56,6 +56,9 @@ jobs:
       - name: Run release SEO QA
         run: node qa/seo-cutover-qa.mjs
 
+      - name: Run internal link QA
+        run: node qa/internal-link-qa.mjs
+
       - name: Upload QA screenshots and report
         if: always()
         uses: actions/upload-artifact@v4
