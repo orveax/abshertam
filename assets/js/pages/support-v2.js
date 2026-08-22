@@ -44,12 +44,22 @@
     const clear=()=>{form.querySelectorAll('.is-invalid').forEach(x=>x.classList.remove('is-invalid'));form.querySelectorAll('[aria-invalid="true"]').forEach(x=>x.removeAttribute('aria-invalid'));};
     const validate=()=>{clear();let ok=true;form.querySelectorAll('[required]').forEach(el=>{if(el.type==='checkbox'){if(!el.checked){ok=false;markInvalid(el)}}else if(!String(el.value||'').trim()||!el.checkValidity()){ok=false;markInvalid(el)}});if(!ok)form.querySelector('[aria-invalid="true"]')?.focus();return ok;};
     const payload=()=>Object.fromEntries([...new FormData(form).entries()].filter(([,v])=>!(v instanceof File)));
-    const handoffText=d=>[t('استفسار عام من موقع أبشر تم','General enquiry from AIBSHER TAMM website'),`${t('الاسم','Name')}: ${d.full_name||'—'}`,`${t('الموضوع','Subject')}: ${d.subject||'—'}`,`${t('الرسالة','Message')}: ${d.message||'—'}`,t('ملاحظة: لم يتم إرسال النموذج إلى Backend في هذه النسخة.','Note: This form has not been sent to a backend in this build.')].join('\n');
+    const genericHandoffText=()=>t('مرحبًا، لدي استفسار عام من موقع أبشر تم.','Hello, I have a general enquiry from the AIBSHER TAMM website.');
     form.addEventListener('submit',async e=>{
       e.preventDefault();if(!validate())return;
       const d=payload();
       if(!endpoint){
-        const box=$('[data-contact-handoff]');if(box){box.classList.add('is-visible');const wa=$('[data-contact-handoff-wa]',box);const num=String(config.whatsappNumber||'').replace(/\D/g,'');if(wa&&num)wa.href=`https://wa.me/${num}?text=${encodeURIComponent(handoffText(d))}`;const mail=$('[data-contact-handoff-mail]',box);const email=config.emails?.general;if(mail&&email)mail.href=`mailto:${email}?subject=${encodeURIComponent(d.subject||'General enquiry')}&body=${encodeURIComponent(d.message||'')}`;}return;
+        const box=$('[data-contact-handoff]');
+        if(box){
+          box.classList.add('is-visible');
+          const wa=$('[data-contact-handoff-wa]',box);
+          const num=String(config.whatsappNumber||'').replace(/\D/g,'');
+          if(wa&&num)wa.href=`https://wa.me/${num}?text=${encodeURIComponent(genericHandoffText())}`;
+          const mail=$('[data-contact-handoff-mail]',box);
+          const email=config.emails?.general;
+          if(mail&&email)mail.href=`mailto:${email}?subject=${encodeURIComponent(t('استفسار عام من الموقع','Website general enquiry'))}`;
+        }
+        return;
       }
       const submit=$('[type="submit"]',form);const old=submit.textContent;submit.disabled=true;submit.textContent=t('جارٍ الإرسال…','Sending…');
       try{const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});if(!r.ok)throw new Error();$('[data-contact-success]')?.classList.add('is-visible');form.reset();}catch(_){const box=$('[data-contact-error]');if(box){box.textContent=t('تعذر إرسال الاستفسار. بياناتك ما زالت موجودة ويمكنك المحاولة مرة أخرى.','The enquiry could not be sent. Your information is still available and you can try again.');box.classList.add('is-visible');}}finally{submit.disabled=false;submit.textContent=old;}
