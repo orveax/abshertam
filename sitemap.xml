@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://abshertam.qa/</loc>
-    <lastmod>2026-08-10</lastmod>
-  </url>
-  <url>
-    <loc>https://abshertam.qa/connect.html</loc>
-    <lastmod>2026-08-10</lastmod>
-  </url>
-  <url>
-    <loc>https://abshertam.qa/contact.html</loc>
-    <lastmod>2026-08-10</lastmod>
-  </url>
-  <url>
-    <loc>https://abshertam.qa/location.html</loc>
-    <lastmod>2026-08-10</lastmod>
-  </url>
-  <url>
-    <loc>https://abshertam.qa/faq.html</loc>
-    <lastmod>2026-08-10</lastmod>
-  </url>
-  <url>
-    <loc>https://abshertam.qa/terms.html</loc>
-    <lastmod>2026-08-10</lastmod>
-  </url>
-  <url>
-    <loc>https://abshertam.qa/privacy.html</loc>
-    <lastmod>2026-08-10</lastmod>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://abshertam.qa/ar/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/"/></url>
+  <url><loc>https://abshertam.qa/en/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/services/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/"/></url>
+  <url><loc>https://abshertam.qa/en/services/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/services/company-transactions/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/company-transactions/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/company-transactions/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/company-transactions/"/></url>
+  <url><loc>https://abshertam.qa/en/services/company-transactions/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/company-transactions/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/company-transactions/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/company-transactions/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/services/work-residence-visas/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/work-residence-visas/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/work-residence-visas/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/work-residence-visas/"/></url>
+  <url><loc>https://abshertam.qa/en/services/work-residence-visas/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/work-residence-visas/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/work-residence-visas/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/work-residence-visas/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/services/attestation-documents/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/attestation-documents/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/attestation-documents/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/attestation-documents/"/></url>
+  <url><loc>https://abshertam.qa/en/services/attestation-documents/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/attestation-documents/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/attestation-documents/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/attestation-documents/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/services/certificates-records/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/certificates-records/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/certificates-records/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/certificates-records/"/></url>
+  <url><loc>https://abshertam.qa/en/services/certificates-records/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/services/certificates-records/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/services/certificates-records/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/services/certificates-records/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/connect/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/connect/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/connect/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/connect/"/></url>
+  <url><loc>https://abshertam.qa/en/connect/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/connect/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/connect/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/connect/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/contact/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/contact/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/contact/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/contact/"/></url>
+  <url><loc>https://abshertam.qa/en/contact/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/contact/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/contact/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/contact/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/location/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/location/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/location/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/location/"/></url>
+  <url><loc>https://abshertam.qa/en/location/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/location/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/location/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/location/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/faq/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/faq/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/faq/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/faq/"/></url>
+  <url><loc>https://abshertam.qa/en/faq/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/faq/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/faq/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/faq/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/terms/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/terms/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/terms/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/terms/"/></url>
+  <url><loc>https://abshertam.qa/en/terms/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/terms/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/terms/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/terms/"/></url>
+
+  <url><loc>https://abshertam.qa/ar/privacy/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/privacy/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/privacy/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/privacy/"/></url>
+  <url><loc>https://abshertam.qa/en/privacy/</loc><lastmod>2026-08-22</lastmod><xhtml:link rel="alternate" hreflang="ar" href="https://abshertam.qa/ar/privacy/"/><xhtml:link rel="alternate" hreflang="en" href="https://abshertam.qa/en/privacy/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://abshertam.qa/ar/privacy/"/></url>
 </urlset>
