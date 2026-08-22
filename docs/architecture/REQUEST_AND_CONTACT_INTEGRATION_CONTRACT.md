@@ -20,8 +20,8 @@ contactEndpoint: '',
 Blank endpoint = integration disabled.
 
 When disabled:
-- Connect preserves the completed request locally and exposes a truthful manual handoff.
-- Contact exposes approved WhatsApp/email handoff.
+- Connect keeps only the non-sensitive transaction selection in browser session state and exposes a truthful manual handoff.
+- Contact exposes approved WhatsApp/email handoff without placing the submitted message or contact details in the handoff URL.
 - No Request ID is fabricated.
 - No Success state is shown as if a backend accepted the record.
 
@@ -86,13 +86,17 @@ The backend must not trust browser validation alone.
 At minimum it must validate:
 - recognized `master_service_id` / `path_id` pair when supplied;
 - `not_sure` route where path is intentionally unknown;
+- `source_id` against known source IDs or the same bounded safe format used by the frontend (maximum 64 characters; letters, numbers, `.`, `_`, `:`, `-` only);
+- UTM fields as optional attribution strings with control characters removed and a maximum length of 120 characters each;
 - `full_name`;
 - valid contact mobile format;
 - required journey fields;
 - explicit consent;
 - bounded field lengths;
 - allowed enum values;
-- duplicate/replay controls appropriate to the chosen backend.
+- a practical request-body size limit;
+- duplicate/replay controls appropriate to the chosen backend;
+- basic abuse/rate-limit controls appropriate to a public unauthenticated form.
 
 ### Request state
 Initial accepted CRM/request state should represent **received for review**, not service completion and not appointment confirmation.
@@ -144,7 +148,7 @@ A Contact Request ID is optional unless future operational policy requires one.
 ## C. Error behavior
 For both endpoints:
 - network error, timeout, non-2xx response, malformed JSON where required, or missing Connect Request ID must not show false Success;
-- entered customer data should remain available for correction/retry where practical;
+- entered customer data should remain available in the active form for correction/retry where practical;
 - frontend error copy must not expose stack traces, infrastructure names, credentials, or internal IDs.
 
 ## D. CORS / origin contract
@@ -172,12 +176,14 @@ The operational team must be able to find the record by Request ID.
 2. Not Sure submission reaches human triage.
 3. Service/path context survives end-to-end.
 4. Invalid payload is rejected server-side.
-5. Duplicate/retry behavior is known and documented.
-6. Backend failure produces frontend error, not Success.
-7. Appointment preference remains unconfirmed until team action.
-8. Contact enquiry reaches the correct operational inbox/queue.
-9. CORS works only for approved origins/policies.
-10. Privacy/retention handling matches approved policy.
+5. Oversized payloads and malformed attribution fields are rejected or normalized server-side.
+6. Duplicate/retry behavior is known and documented.
+7. Basic public-form abuse/rate-limit behavior is known and documented.
+8. Backend failure produces frontend error, not Success.
+9. Appointment preference remains unconfirmed until team action.
+10. Contact enquiry reaches the correct operational inbox/queue.
+11. CORS works only for approved origins/policies.
+12. Privacy/retention handling matches approved policy.
 
 ## Release rule
 Do not populate `requestEndpoint` or `contactEndpoint` in production config until the relevant endpoint passes this contract and integration QA.
